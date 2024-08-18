@@ -188,10 +188,10 @@ on:
       kernel_repo:
         description: "Set the kernel repository."
         required: false
-        default: "ophub/kernel"
+        default: "danteliu119/kernel"
         type: choice
         options:
-          - ophub/kernel
+          - danteliu119/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -221,10 +221,10 @@ on:
       builder_name:
         description: "Set Armbian builder signature."
         required: false
-        default: "ophub"
+        default: "danteliu119"
         type: choice
         options:
-          - ophub
+          - danteliu119
           - angel
           - yourname
 
@@ -288,7 +288,7 @@ jobs:
           armbian_buildpath="build/output/images"
           [[ -d "${armbian_buildpath}" ]] || mkdir -p "${armbian_buildpath}"
           ln -sf /builder/build ${GITHUB_WORKSPACE}/build
-          ln -sf /builder/build /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/build
+          ln -sf /builder/build /home/runner/work/_actions/danteliu119/amlogic-s9xxx-armbian/main/build
 
           latest_version="$(curl -s \
                               -H "Accept: application/vnd.github+json" \
@@ -315,7 +315,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Rebuild Armbian [ ${{ inputs.set_release }} ]
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: danteliu119/amlogic-s9xxx-armbian@main
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: armbian
