@@ -72,7 +72,7 @@ os_release_file="etc/os-release"
 # Set banner's ${BOARD_NAME}: such as [ s905x3 ]
 armbian_release_file="etc/armbian-release"
 # Add custom armbian information
-ophub_release_file="etc/ophub-release"
+danteliu119_release_file="etc/danteliu119-release"
 
 # U-BOOT files download repository
 uboot_repo="https://github.com/ophub/u-boot"
@@ -80,7 +80,7 @@ uboot_repo="https://github.com/ophub/u-boot"
 firmware_repo="https://github.com/ophub/firmware"
 
 # Set the kernel download repository from github.com
-kernel_repo="https://github.com/ophub/kernel"
+kernel_repo="https://github.com/danteliu119/kernel"
 # Set the tags(kernel_xxx) of the default kernel that can be replaced via the [ -u ] parameter
 default_tags="stable"
 kernel_usage=""
