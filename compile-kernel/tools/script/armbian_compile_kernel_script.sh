@@ -6,12 +6,12 @@
 # warranty of any kind, whether express or implied.
 #
 # This file is a part of the Rebuild Armbian
-# https://github.com/ophub/amlogic-s9xxx-armbian
+# https://github.com/danteliu119/amlogic-s9xxx-armbian
 #
 # Description: Run on Armbian, Compile the kernel.
 # Copyright (C) 2021~ https://www.kernel.org
 # Copyright (C) 2021~ https://github.com/unifreq
-# Copyright (C) 2021~ https://github.com/ophub/amlogic-s9xxx-armbian
+# Copyright (C) 2021~ https://github.com/danteliu119/amlogic-s9xxx-armbian
 #
 # Command: armbian-kernel
 # Command optional parameters please refer to the source code repository
@@ -60,25 +60,25 @@ modules_backup_path="${tmp_backup_path}/modules"
 arch_info="$(uname -m)"
 host_release="$(cat /etc/os-release | grep '^VERSION_CODENAME=.*' | cut -d"=" -f2)"
 initramfs_conf="/etc/initramfs-tools/update-initramfs.conf"
-ophub_release_file="/etc/ophub-release"
+danteliu119_release_file="/etc/danteliu119-release"
 
 # Set the default for downloading kernel sources from github.com
-repo_owner="unifreq"
+repo_owner="danteliu119"
 repo_branch="main"
-build_kernel=("6.1.y" "6.6.y")
+build_kernel=("6.1.y" "6.6.46")
 # Set whether to use the latest kernel, options: [ true / false ]
 auto_kernel="true"
 # Set whether to apply custom kernel patches, options: [ true / false ]
 auto_patch="false"
 # Set custom signature for the kernel
-custom_name="-ophub"
+custom_name="-danteliu119"
 # Set the kernel compile object, options: [ dtbs / all ]
 package_list="all"
 # Set the compression format, options: [ gzip / lzma / xz / zstd ]
 compress_format="xz"
 
 # Compile toolchain download mirror, run on Armbian
-dev_repo="https://github.com/ophub/kernel/releases/download/dev"
+dev_repo="https://github.com/danteliu119/kernel/releases/download/dev"
 # Arm GNU Toolchain source: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 gun_file="arm-gnu-toolchain-13.3.rel1-aarch64-aarch64-none-elf.tar.xz"
 # Set the toolchain path
@@ -203,17 +203,17 @@ init_var() {
     export LOCALVERSION="${custom_name}"
 
     # Check release file
-    [[ -f "${ophub_release_file}" ]] || error_msg "missing [ ${ophub_release_file} ] file."
+    [[ -f "${danteliu119_release_file}" ]] || error_msg "missing [ ${danteliu119_release_file} ] file."
 
     # Get values
-    source "${ophub_release_file}"
+    source "${danteliu119_release_file}"
     PLATFORM="${PLATFORM}"
     FDTFILE="${FDTFILE}"
 
     # Early devices did not add platform parameters, auto-completion
     [[ -z "${PLATFORM}" && -n "${FDTFILE}" ]] && {
         [[ ${FDTFILE:0:5} == "meson" ]] && PLATFORM="amlogic" || PLATFORM="rockchip"
-        echo "PLATFORM='${PLATFORM}'" >>${ophub_release_file}
+        echo "PLATFORM='${PLATFORM}'" >>${danteliu119_release_file}
     }
     echo -e "${INFO} Armbian PLATFORM: [ ${PLATFORM} ]"
 }
