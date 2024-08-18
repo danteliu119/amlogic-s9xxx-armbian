@@ -6,11 +6,11 @@
 # warranty of any kind, whether express or implied.
 #
 # This file is a part of the Rebuild Armbian
-# https://github.com/ophub/amlogic-s9xxx-armbian
+# https://github.com/danteliu119/amlogic-s9xxx-armbian
 #
 # Function: Execute software install/update/remove command
 # Copyright (C) 2021- https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021- https://github.com/ophub/amlogic-s9xxx-armbian
+# Copyright (C) 2021- https://github.com/danteliu119/amlogic-s9xxx-armbian
 #
 #============================== Functions list ==============================
 #
@@ -28,9 +28,9 @@
 #========================== Set default parameters ==========================
 #
 # Get custom firmware information
-software_path="/usr/share/ophub/armbian-software"
+software_path="/usr/share/danteliu119/armbian-software"
 command_docker="${software_path}/command-docker.sh"
-ophub_release_file="/etc/ophub-release"
+danteliu119_release_file="/etc/danteliu119-release"
 #
 # Docker-related default settings
 docker_path="/opt/docker"
@@ -70,15 +70,15 @@ error_msg() {
 }
 
 check_release() {
-    if [[ -f "${ophub_release_file}" ]]; then
-        source "${ophub_release_file}" 2>/dev/null
+    if [[ -f "${danteliu119_release_file}" ]]; then
+        source "${danteliu119_release_file}" 2>/dev/null
         VERSION_CODEID="${VERSION_CODEID}"
         VERSION_CODENAME="${VERSION_CODENAME}"
     else
-        error_msg "${ophub_release_file} file is missing!"
+        error_msg "${danteliu119_release_file} file is missing!"
     fi
 
-    [[ -n "${VERSION_CODEID}" && -n "${VERSION_CODENAME}" ]] || error_msg "${ophub_release_file} value is missing!"
+    [[ -n "${VERSION_CODEID}" && -n "${VERSION_CODENAME}" ]] || error_msg "${danteliu119_release_file} value is missing!"
 }
 
 software_install() {
