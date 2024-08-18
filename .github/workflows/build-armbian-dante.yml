@@ -76,12 +76,12 @@ on:
       builder_name:
         description: "Set Armbian builder signature."
         required: false
-        default: "yourname"
+        default: "danteliu119"
         type: choice
         options:
           - ophub
           - angel
-          - yourname
+          - danteliu119
 
 env:
   TZ: America/New_York
