@@ -164,7 +164,7 @@ on:
       armbian_kernel:
         description: "Select kernel version."
         required: false
-        default: "- 5.10.y"
+        default: "6.1.y_6.6.y"
         type: choice
         options:
           - 5.4.y
@@ -182,10 +182,10 @@ on:
       kernel_repo:
         description: "Set the kernel repository."
         required: false
-        default: "danteliu119/kernel"
+        default: "ophub/kernel"
         type: choice
         options:
-          - danteliu119/kernel
+          - ophub/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -215,10 +215,10 @@ on:
       builder_name:
         description: "Set Armbian builder signature."
         required: false
-        default: "danteliu119"
+        default: "ophub"
         type: choice
         options:
-          - danteliu119
+          - ophub
           - angel
           - yourname
 
@@ -307,14 +307,14 @@ jobs:
 
           mkdir -p /builder/build
           ln -sf /builder/build ${GITHUB_WORKSPACE}/build
-          ln -sf /builder/build /home/runner/work/_actions/danteliu119/amlogic-s9xxx-armbian/main/build
+          ln -sf /builder/build /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/build
 
           sudo timedatectl set-timezone "${TZ}"
           echo "build_tag=Armbian${set_release}_${{ inputs.armbian_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Rebuild Armbian
-        uses: danteliu119/amlogic-s9xxx-armbian@main
+        uses: ophub/amlogic-s9xxx-armbian@main
         if: ${{ env.ARMBIAN_URL }} != '' && !cancelled()
         with:
           build_target: armbian
