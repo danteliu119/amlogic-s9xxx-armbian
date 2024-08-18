@@ -60,15 +60,15 @@ arch_info="$(uname -m)"
 host_release="$(cat /etc/os-release | grep '^VERSION_CODENAME=.*' | cut -d'=' -f2)"
 
 # Set the default for downloading kernel sources from github.com
-repo_owner="unifreq"
+repo_owner="danteliu119"
 repo_branch="main"
-build_kernel=("6.1.y" "6.6.y")
+build_kernel=("6.1.y" "6.6.46")
 # Set whether to use the latest kernel, options: [ true / false ]
 auto_kernel="true"
 # Set whether to apply custom kernel patches, options: [ true / false ]
 auto_patch="false"
 # Set custom signature for the kernel
-custom_name="-ophub"
+custom_name="-danteliu119"
 # Set the kernel compile object, options: [ dtbs / all ]
 package_list="all"
 # Set the compression format, options: [ gzip / lzma / xz / zstd ]
@@ -79,7 +79,7 @@ dev_repo="https://github.com/ophub/kernel/releases/download/dev"
 # Arm GNU Toolchain source: https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads
 gun_file_x86_64="arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu.tar.xz"
 gun_file_aarch64="arm-gnu-toolchain-13.3.rel1-aarch64-aarch64-none-elf.tar.xz"
-# Armenian file source: https://github.com/ophub/amlogic-s9xxx-armbian/releases
+# Armenian file source: https://github.com/danteliu119/amlogic-s9xxx-armbian/releases
 armbian_rootfs_file="armbian.tar.xz"
 # Set the toolchain path
 toolchain_path="/usr/local/toolchain"
@@ -458,7 +458,7 @@ chroot_armbian() {
     mount_try ${loop_armbian}p2 ${tag_rootfs}
     mount_try ${loop_armbian}p1 ${tag_rootfs}/boot
 
-    ARMBIAN_PLATFORM="$(cat ${tag_rootfs}/etc/ophub-release 2>/dev/null | grep -E "^PLATFORM=.*" | cut -d"'" -f2)"
+    ARMBIAN_PLATFORM="$(cat ${tag_rootfs}/etc/danteliu119-release 2>/dev/null | grep -E "^PLATFORM=.*" | cut -d"'" -f2)"
     echo -e "${INFO} Armbian PLATFORM: [ ${ARMBIAN_PLATFORM} ]"
 
     echo -e "${INFO} Copy the kernel files to the armbian system..."
