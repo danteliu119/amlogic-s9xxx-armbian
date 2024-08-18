@@ -196,7 +196,7 @@ jobs:
           builder_name: ${{ inputs.builder_name }}
 
       - name: Upload Rebuild image to Release
-        uses: ncipollo/release-action@main
+        uses: danteliu119/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: ${{ steps.clean.outputs.build_tag }}
