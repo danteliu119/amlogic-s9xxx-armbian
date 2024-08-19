@@ -51,13 +51,14 @@ on:
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
-        default: "stable"
+        default: "rk35xx"
         type: choice
         options:
           - stable
           - flippy
           - dev
           - beta
+          - rk35xx
       armbian_fstype:
         description: "Set armbian rootfs type."
         required: false
