@@ -4,7 +4,7 @@
 # Copyright (C) 2023 https://github.com/ophub/kernel
 #==========================================================================
 
-name: Compile release rk35xx kernel
+name: Compile the kernel5
 
 on:
   repository_dispatch:
@@ -69,16 +69,6 @@ on:
         type: choice
         options:
           - -rk35xx-danteliu119
-          - -happy-new-year
-          - -dragon-boat-festival
-          - -mid-autumn-festival
-          - -happy-national-day
-          - -merry-christmas
-          - -spring-plowing
-          - -summer-growing
-          - -autumn-harvesting
-          - -winter-storing
-          - -yourname
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
@@ -151,7 +141,7 @@ jobs:
           ln -sf /builder/output /home/runner/work/_actions/danteliu119/amlogic-s9xxx-armbian/main/compile-kernel/output
           echo "status=success" >> ${GITHUB_OUTPUT}
 
-      - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
+      - name: Compile the kernel5 [ ${{ inputs.kernel_version }} ]
         uses: danteliu119/amlogic-s9xxx-armbian@main
         if: ${{ steps.mapped.outputs.status }} == 'success' && !cancelled()
         with:
