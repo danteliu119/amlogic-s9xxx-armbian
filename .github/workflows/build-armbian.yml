@@ -3,7 +3,7 @@
 # Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
 #==========================================================================
 
-name: Build armbian
+name: Build armbian5
 
 on:
   repository_dispatch:
@@ -49,7 +49,7 @@ on:
         default: "rk35xx"
         type: choice
         options:
-          - rk356x
+          - rk35xx
       armbian_fstype:
         description: "Select armbian rootfs type."
         required: false
