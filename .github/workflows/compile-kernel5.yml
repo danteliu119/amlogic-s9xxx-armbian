@@ -69,7 +69,13 @@ on:
           - -ophub
           - -yourname
           - -danteliu119
-
+      kernel_usage:
+        description: "Set the tags of the rk35xx kernel."
+        required: false
+        default: "rk35xx"
+        type: choice
+        options:
+          - rk35xx
 env:
   TZ: America/New_York
 
