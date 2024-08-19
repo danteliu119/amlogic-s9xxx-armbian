@@ -136,7 +136,7 @@ jobs:
           ln -sf /builder/build /home/runner/work/_actions/danteliu119/amlogic-s9xxx-armbian/main/build
           echo "status=success" >> ${GITHUB_OUTPUT}
 
-      - name: Compile Armbian [ ${{ inputs.set_release }} ]
+      - name: Compile Armbian5 [ ${{ inputs.set_release }} ]
         id: compile
         working-directory: /builder
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
