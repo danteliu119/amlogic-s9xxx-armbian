@@ -65,7 +65,7 @@ danteliu119_release_file="/etc/danteliu119-release"
 # Set the default for downloading kernel sources from github.com
 repo_owner="danteliu119"
 repo_branch="main"
-build_kernel=("6.1.y" "6.6.46")
+build_kernel=("6.6.46")
 # Set whether to use the latest kernel, options: [ true / false ]
 auto_kernel="true"
 # Set whether to apply custom kernel patches, options: [ true / false ]
