@@ -13,10 +13,10 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119"
+        default: "danteliu119/linux-5.10.y-rk35xx"
         type: choice
         options:
-          - danteliu119
+          - danteliu119/linux-5.10.y-rk35xx
       kernel_version:
         description: "Select kernel version"
         required: false
