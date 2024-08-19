@@ -76,6 +76,14 @@ on:
         type: choice
         options:
           - rk35xx
+      kernel_config:
+        description: "Set the path of kernel .config"
+        required: false
+        default: "kernel-config/release/rk35xx"
+        type: choice
+        options:
+          - kernel-config/release/rk35xx
+          - false
 env:
   TZ: America/New_York
 
