@@ -27,10 +27,10 @@ on:
       armbian_kernel:
         description: "Select kernel version."
         required: false
-        default: "5.10.y"
+        default: "5.10.160"
         type: choice
         options:
-          - 5.10.y
+          - 5.10.160
       auto_kernel:
         description: "Auto use the latest kernel."
         required: false
@@ -44,7 +44,7 @@ on:
         options:
           - danteliu119/kernel
       kernel_usage:
-        description: "Set the tags of the stable kernel."
+        description: "Set the tags of the rk35xx kernel."
         required: false
         default: "rk35xx"
         type: choice
