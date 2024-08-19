@@ -1,10 +1,10 @@
 #==========================================================================
-# Description: Compile the kernel
-# Copyright (C) 2021 https://github.com/unifreq/openwrt_packit
-# Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
+# Description: Compile release rk35xx kernel
+# Copyright (C) 2023 https://github.com/unifreq/linux-5.10.y-rk35xx
+# Copyright (C) 2023 https://github.com/ophub/kernel
 #==========================================================================
 
-name: Compile the kernel5
+name: Compile release rk35xx kernel
 
 on:
   repository_dispatch:
@@ -17,6 +17,8 @@ on:
         type: choice
         options:
           - danteliu119/linux-5.10.y-rk35xx
+          - codesnas/linux-5.10.y-rk35xx
+          - armbian/linux-rockchip@rk-6.1-rkr3
       kernel_version:
         description: "Select kernel version"
         required: false
@@ -24,10 +26,11 @@ on:
         type: choice
         options:
           - 5.10.160
+          - 6.1.y
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
-        default: false
+        default: true
         type: boolean
       kernel_package:
         description: "Select compile package list"
@@ -43,7 +46,6 @@ on:
         default: "gcc"
         type: choice
         options:
-          - clang
           - gcc
           - gcc-11.3
           - gcc-12.2
@@ -63,19 +65,20 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-danteliu119"
+        default: "-rk35xx-danteliu119"
         type: choice
         options:
-          - -ophub
+          - -rk35xx-danteliu119
+          - -happy-new-year
+          - -dragon-boat-festival
+          - -mid-autumn-festival
+          - -happy-national-day
+          - -merry-christmas
+          - -spring-plowing
+          - -summer-growing
+          - -autumn-harvesting
+          - -winter-storing
           - -yourname
-          - -danteliu119
-      kernel_usage:
-        description: "Set the tags of the rk35xx kernel."
-        required: false
-        default: "rk35xx"
-        type: choice
-        options:
-          - rk35xx
       kernel_config:
         description: "Set the path of kernel .config"
         required: false
@@ -84,6 +87,7 @@ on:
         options:
           - kernel-config/release/rk35xx
           - false
+
 env:
   TZ: America/New_York
 
@@ -147,7 +151,7 @@ jobs:
           ln -sf /builder/output /home/runner/work/_actions/danteliu119/amlogic-s9xxx-armbian/main/compile-kernel/output
           echo "status=success" >> ${GITHUB_OUTPUT}
 
-      - name: Compile the kernel5 [ ${{ inputs.kernel_version }} ]
+      - name: Compile the kernel [ ${{ inputs.kernel_version }} ]
         uses: danteliu119/amlogic-s9xxx-armbian@main
         if: ${{ steps.mapped.outputs.status }} == 'success' && !cancelled()
         with:
@@ -156,21 +160,22 @@ jobs:
           kernel_version: ${{ inputs.kernel_version }}
           kernel_auto: ${{ inputs.kernel_auto }}
           kernel_package: ${{ inputs.kernel_package }}
-          kernel_sign: ${{ inputs.kernel_sign }}
           kernel_toolchain: ${{ inputs.kernel_toolchain }}
+          kernel_sign: ${{ inputs.kernel_sign }}
+          kernel_config: ${{ inputs.kernel_config }}
           compress_format: ${{ inputs.compress_format }}
 
       - name: Upload Kernel to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_stable
+          tag: kernel_rk35xx
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
-          removeArtifacts: false
-          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            The kernel can be used to compile Armbian and OpenWrt.
-            The kernel source code comes from: ${{ inputs.kernel_source }}
-            The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
+            - The kernel can be used to compile Armbian and OpenWrt.
+            - The kernel source code comes from: unifreq/linux-5.10.y-rk35xx
+            - The kernel compilation toolchain: gcc
+            - This is a dedicated kernel for `Rockchip rk3528/rk3566/rk3568` and is not compatible with other series.
+            - 这是 `Rockchip rk3528/rk3566/rk3568` 专用内核，和其他系列不通用。
