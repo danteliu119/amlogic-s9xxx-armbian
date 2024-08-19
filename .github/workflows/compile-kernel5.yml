@@ -13,17 +13,17 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119"
+        default: "danteliu119/linux-5.10.y-rk35xx"
         type: choice
         options:
-          - danteliu119
+          - danteliu119/linux-5.10.y-rk35xx
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.10.y-rk35xx"
+        default: "5.10.160"
         type: choice
         options:
-          - 5.10.y-rk35xx
+          - 5.10.160
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
@@ -67,6 +67,14 @@ on:
         type: choice
         options:
           - -danteliu119
+      kernel_config:
+        description: "Set the path of kernel .config"
+        required: false
+        default: "kernel-config/release/rk35xx"
+        type: choice
+        options:
+          - kernel-config/release/rk35xx
+          - false
 
 env:
   TZ: America/New_York
@@ -148,13 +156,13 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_stable
+          tag: kernel_rk35xx
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
-          removeArtifacts: false
-          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            The kernel can be used to compile Armbian and OpenWrt.
-            The kernel source code comes from: ${{ inputs.kernel_source }}
-            The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
+            - The kernel can be used to compile Armbian and OpenWrt.
+            - The kernel source code comes from: unifreq/linux-5.10.y-rk35xx
+            - The kernel compilation toolchain: gcc
+            - This is a dedicated kernel for `Rockchip rk3528/rk3566/rk3568` and is not compatible with other series.
+            - 这是 `Rockchip rk3528/rk3566/rk3568` 专用内核，和其他系列不通用。
