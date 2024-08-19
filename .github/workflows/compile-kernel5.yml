@@ -1,7 +1,7 @@
 #==========================================================================
-# Description: Compile release rk35xx kernel
-# Copyright (C) 2023 https://github.com/unifreq/linux-5.10.y-rk35xx
-# Copyright (C) 2023 https://github.com/ophub/kernel
+# Description: Compile the kernel
+# Copyright (C) 2021 https://github.com/unifreq/openwrt_packit
+# Copyright (C) 2021 https://github.com/ophub/amlogic-s9xxx-armbian
 #==========================================================================
 
 name: Compile the kernel5
@@ -13,20 +13,17 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119/linux-5.10.y-rk35xx"
+        default: "danteliu119"
         type: choice
         options:
-          - danteliu119/linux-5.10.y-rk35xx
-          - codesnas/linux-5.10.y-rk35xx
-          - armbian/linux-rockchip@rk-6.1-rkr3
+          - danteliu119
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.10.160"
+        default: "5.10.y"
         type: choice
         options:
-          - 5.10.160
-          - 6.1.y
+          - 5.10.y
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
@@ -46,6 +43,7 @@ on:
         default: "gcc"
         type: choice
         options:
+          - clang
           - gcc
           - gcc-11.3
           - gcc-12.2
@@ -65,18 +63,10 @@ on:
       kernel_sign:
         description: "Set the kernel custom signature"
         required: false
-        default: "-rk35xx-danteliu119"
+        default: "-danteliu119"
         type: choice
         options:
-          - -rk35xx-danteliu119
-      kernel_config:
-        description: "Set the path of kernel .config"
-        required: false
-        default: "kernel-config/release/rk35xx"
-        type: choice
-        options:
-          - kernel-config/release/rk35xx
-          - false
+          - -danteliu119
 
 env:
   TZ: America/New_York
@@ -150,22 +140,21 @@ jobs:
           kernel_version: ${{ inputs.kernel_version }}
           kernel_auto: ${{ inputs.kernel_auto }}
           kernel_package: ${{ inputs.kernel_package }}
-          kernel_toolchain: ${{ inputs.kernel_toolchain }}
           kernel_sign: ${{ inputs.kernel_sign }}
-          kernel_config: ${{ inputs.kernel_config }}
+          kernel_toolchain: ${{ inputs.kernel_toolchain }}
           compress_format: ${{ inputs.compress_format }}
 
       - name: Upload Kernel to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_rk35xx
+          tag: kernel_stable
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            - The kernel can be used to compile Armbian and OpenWrt.
-            - The kernel source code comes from: unifreq/linux-5.10.y-rk35xx
-            - The kernel compilation toolchain: gcc
-            - This is a dedicated kernel for `Rockchip rk3528/rk3566/rk3568` and is not compatible with other series.
-            - 这是 `Rockchip rk3528/rk3566/rk3568` 专用内核，和其他系列不通用。
+            The kernel can be used to compile Armbian and OpenWrt.
+            The kernel source code comes from: ${{ inputs.kernel_source }}
+            The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
