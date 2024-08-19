@@ -16,9 +16,10 @@ on:
       armbian_board:
         description: "Select device board."
         required: false
-        default: "seewo-sv21"
+        default: "all"
         type: choice
         options:
+          - all
           - seewo-sv21
       armbian_kernel:
         description: "Select kernel version."
@@ -40,7 +41,7 @@ on:
         options:
           - danteliu119/kernel
       kernel_usage:
-        description: "Set the tags of the stable kernel."
+        description: "Set the tags of the rk35xx kernel."
         required: false
         default: "rk35xx"
         type: choice
@@ -163,7 +164,7 @@ jobs:
           echo "build_tag=Armbian${set_release}_${{ inputs.armbian_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
-      - name: Rebuild armbian5
+      - name: Rebuild Armbian5
         uses: danteliu119/amlogic-s9xxx-armbian@main
         if: ${{ env.ARMBIAN_URL }} != '' && !cancelled()
         with:
