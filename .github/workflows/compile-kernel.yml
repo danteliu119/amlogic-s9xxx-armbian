@@ -13,27 +13,17 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119"
+        default: "unifreq"
         type: choice
         options:
           - unifreq
-          - codesnas
-          - danteliu119
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "6.6.46"
+        default: "6.6.y"
         type: choice
         options:
-          - 5.4.y
-          - 5.10.y
-          - 5.15.y
-          - 6.1.y
           - 6.6.y
-          - 6.1.y_6.6.y
-          - 5.15.y_5.10.y
-          - 6.6.46
-          - 5.10.223
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
@@ -76,8 +66,6 @@ on:
         default: "-danteliu119"
         type: choice
         options:
-          - -ophub
-          - -yourname
           - -danteliu119
 
 env:
