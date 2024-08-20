@@ -13,17 +13,27 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119/linux-5.10.y-rk35xx"
+        default: "danteliu119"
         type: choice
         options:
-          - danteliu119/linux-5.10.y-rk35xx
+          - unifreq
+          - codesnas
+          - danteliu119
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.10.160"
+        default: "5.10.y"
         type: choice
         options:
-          - 5.10.160
+          - 5.4.y
+          - 5.10.y
+          - 5.15.y
+          - 6.1.y
+          - 6.6.y
+          - 6.1.y_6.6.y
+          - 5.15.y_5.10.y
+          - 6.6.46
+          - 5.10.223
       kernel_auto:
         description: "Auto use the latest kernel"
         required: false
@@ -66,8 +76,9 @@ on:
         default: "-danteliu119"
         type: choice
         options:
+          - -ophub
+          - -yourname
           - -danteliu119
-
 
 env:
   TZ: America/New_York
@@ -149,13 +160,13 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: kernel_rk35xx
+          tag: kernel_stable
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          removeArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           body: |
-            - The kernel can be used to compile Armbian and OpenWrt.
-            - The kernel source code comes from: unifreq/linux-5.10.y-rk35xx
-            - The kernel compilation toolchain: gcc
-            - This is a dedicated kernel for `Rockchip rk3528/rk3566/rk3568` and is not compatible with other series.
-            - 这是 `Rockchip rk3528/rk3566/rk3568` 专用内核，和其他系列不通用。
+            The kernel can be used to compile Armbian and OpenWrt.
+            The kernel source code comes from: ${{ inputs.kernel_source }}
+            The kernel compilation toolchain: ${{ inputs.kernel_toolchain }}
