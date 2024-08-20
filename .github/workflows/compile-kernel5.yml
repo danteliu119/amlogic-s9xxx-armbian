@@ -13,20 +13,20 @@ on:
       kernel_source:
         description: "Select the kernel source"
         required: false
-        default: "danteliu119"
+        default: "danteliu119/linux-5.10.y-rk35xx"
         type: choice
         options:
           - unifreq
           - codesnas
-          - danteliu119
+          - danteliu119/linux-5.10.y-rk35xx
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.10.y"
+        default: "5.10.160"
         type: choice
         options:
           - 5.4.y
-          - 5.10.y
+          - 5.10.160
           - 5.15.y
           - 6.1.y
           - 6.6.y
