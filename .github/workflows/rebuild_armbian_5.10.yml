@@ -31,7 +31,7 @@ on:
       auto_kernel:
         description: "Auto use the latest kernel."
         required: false
-        default: true
+        default: false
         type: boolean
       kernel_repo:
         description: "Set the kernel repository."
@@ -43,10 +43,10 @@ on:
       kernel_usage:
         description: "Set the tags of the rk35xx kernel."
         required: false
-        default: "rk35xx"
+        default: "stable"
         type: choice
         options:
-          - rk35xx
+          - stable
       armbian_fstype:
         description: "Set armbian rootfs type."
         required: false
