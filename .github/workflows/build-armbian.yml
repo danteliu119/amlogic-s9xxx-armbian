@@ -19,10 +19,9 @@ on:
       armbian_board:
         description: "Select device board."
         required: false
-        default: "all"
+        default: "seewo-sv21"
         type: choice
         options:
-          - all
           - seewo-sv21
       armbian_kernel:
         description: "Select kernel version."
