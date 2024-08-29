@@ -12,11 +12,12 @@ on:
       set_release:
         description: "Select OS Release."
         required: false
-        default: "bullseye"
+        default: "noble"
         type: choice
         options:
           - jammy
           - bullseye
+          - noble
       armbian_board:
         description: "Select device board."
         required: false
