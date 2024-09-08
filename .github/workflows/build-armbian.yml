@@ -40,7 +40,7 @@ on:
       kernel_repo:
         description: "Set the kernel repository."
         required: false
-        default: "danteliu119/amlogic-s9xxx-armbian"
+        default: "danteliu119/kernel"
         type: choice
         options:
           - danteliu119/amlogic-s9xxx-armbian
